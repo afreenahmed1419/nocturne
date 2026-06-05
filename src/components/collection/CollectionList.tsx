@@ -11,7 +11,7 @@ import { staggerContainer, fadeLeft, fadeRight, fadeUp } from "@/lib/animations"
 export default function CollectionList() {
   return (
     <section className="bg-transparent py-10 sm:py-16 px-4 sm:px-6 md:px-12 lg:px-24">
-      <div className="max-w-5xl mx-auto flex flex-col gap-10 sm:gap-16">
+      <div className="max-w-5xl mx-auto flex flex-col gap-6 sm:gap-16">
         {fragrances.map((fragrance, index) => (
           <FragranceRow key={fragrance.id} fragrance={fragrance} index={index} />
         ))}
@@ -35,7 +35,7 @@ function FragranceRow({ fragrance }: { fragrance: (typeof fragrances)[0]; index:
         {/* Image — always left */}
         <motion.div
           variants={fadeLeft}
-          className="relative overflow-hidden min-h-[240px] sm:min-h-[300px] lg:min-h-[360px]"
+          className="relative overflow-hidden min-h-[180px] sm:min-h-[260px] lg:min-h-[360px]"
         >
           <Image
             src={`/fragrances/${fragrance.slug}.jpg`}
@@ -55,7 +55,7 @@ function FragranceRow({ fragrance }: { fragrance: (typeof fragrances)[0]; index:
         {/* Text — always right */}
         <motion.div
           variants={fadeRight}
-          className="flex flex-col justify-center py-6 sm:py-8 px-5 sm:px-8 md:px-10 bg-charcoal/60 backdrop-blur-sm"
+          className="flex flex-col justify-center py-4 sm:py-8 px-4 sm:px-8 md:px-10 bg-charcoal/60 backdrop-blur-sm"
         >
           <motion.p variants={fadeUp} className="font-serif italic text-gold/70 text-base mb-3">
             &ldquo;{fragrance.tagline}&rdquo;
