@@ -20,7 +20,7 @@ export default function CollectionList() {
   );
 }
 
-function FragranceRow({ fragrance, index }: { fragrance: (typeof fragrances)[0]; index: number }) {
+function FragranceRow({ fragrance }: { fragrance: (typeof fragrances)[0]; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useMotionValue, useTransform, useSpring, useScroll, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
 import ParticleCanvas from "./ParticleCanvas";
@@ -26,7 +26,6 @@ export default function HeroFallback() {
   const imgY    = useTransform(smoothY, [-1, 1], ["-2%", "2%"]);
   // Counter-move for text depth
   const txtX    = useTransform(smoothX, [-1, 1], ["8px", "-8px"]);
-  const txtYmov = useTransform(smoothY, [-1, 1], ["5px", "-5px"]);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {

@@ -5,7 +5,6 @@ import { useRef } from "react";
 import Image from "next/image";
 import Button from "@/components/Button";
 import ParticleCanvas from "@/components/hero/ParticleCanvas";
-import { staggerContainer, fadeRight } from "@/lib/animations";
 
 export default function StoryTeaser() {
   const ref = useRef(null);

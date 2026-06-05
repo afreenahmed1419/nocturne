@@ -73,46 +73,4 @@ function OriginBlock({
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function BookIllustration() {
-  return (
-    <svg viewBox="0 0 200 200" width="160" height="160" fill="none" aria-hidden="true">
-      <rect x="40" y="40" width="120" height="130" rx="3" stroke="#C7A15A" strokeWidth="0.8" />
-      <rect x="50" y="50" width="100" height="110" rx="2" stroke="#C7A15A" strokeWidth="0.4" opacity="0.5" />
-      <line x1="60" y1="70" x2="140" y2="70" stroke="#C7A15A" strokeWidth="0.5" opacity="0.4" />
-      <line x1="60" y1="82" x2="140" y2="82" stroke="#C7A15A" strokeWidth="0.5" opacity="0.4" />
-      <line x1="60" y1="94" x2="120" y2="94" stroke="#C7A15A" strokeWidth="0.5" opacity="0.4" />
-      <line x1="60" y1="106" x2="130" y2="106" stroke="#C7A15A" strokeWidth="0.5" opacity="0.4" />
-      <line x1="60" y1="118" x2="115" y2="118" stroke="#C7A15A" strokeWidth="0.5" opacity="0.4" />
-      <path d="M40 40 Q40 35 45 35 L155 35 Q160 35 160 40" stroke="#C7A15A" strokeWidth="0.6" fill="none" opacity="0.6" />
-    </svg>
-  );
-}
 
-function MoonIllustration() {
-  return (
-    <svg viewBox="0 0 200 200" width="160" height="160" fill="none" aria-hidden="true">
-      <circle cx="100" cy="100" r="60" stroke="#C7A15A" strokeWidth="0.6" opacity="0.4" />
-      <path d="M100 40 A60 60 0 0 0 100 160 A45 45 0 0 1 100 40Z" fill="rgba(199,161,90,0.1)" stroke="#C7A15A" strokeWidth="0.6" />
-      {[[40,60],[150,80],[30,130],[160,130],[90,30]].map(([x,y],i) => (
-        <g key={i} opacity="0.5">
-          <line x1={x} y1={y-3} x2={x} y2={y+3} stroke="#C7A15A" strokeWidth="0.6" />
-          <line x1={x-3} y1={y} x2={x+3} y2={y} stroke="#C7A15A" strokeWidth="0.6" />
-        </g>
-      ))}
-    </svg>
-  );
-}
-
-function TheaterIllustration() {
-  return (
-    <svg viewBox="0 0 200 200" width="160" height="160" fill="none" aria-hidden="true">
-      <path d="M20 160 L20 60 Q20 40 40 40 L80 40" stroke="#C7A15A" strokeWidth="0.8" fill="none" opacity="0.6" />
-      <path d="M180 160 L180 60 Q180 40 160 40 L120 40" stroke="#C7A15A" strokeWidth="0.8" fill="none" opacity="0.6" />
-      <path d="M80 40 Q100 60 120 40" stroke="#C7A15A" strokeWidth="0.6" fill="none" opacity="0.5" />
-      <line x1="100" y1="40" x2="100" y2="160" stroke="#C7A15A" strokeWidth="0.4" strokeDasharray="4 8" opacity="0.3" />
-      <circle cx="100" cy="80" r="15" stroke="#C7A15A" strokeWidth="0.5" opacity="0.4" />
-      <path d="M20 160 L180 160" stroke="#C7A15A" strokeWidth="0.6" opacity="0.3" />
-    </svg>
-  );
-}
