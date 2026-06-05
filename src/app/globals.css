@@ -2,26 +2,245 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --font-playfair: "Playfair Display", Georgia, serif;
+    --font-jakarta: "Plus Jakarta Sans", system-ui, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0E0E10;
+    color: #E8E4D9;
+    font-family: var(--font-jakarta);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  ::selection {
+    background-color: rgba(199, 161, 90, 0.3);
+    color: #E8E4D9;
+  }
+
+  :focus-visible {
+    outline: 1px solid #C7A15A;
+    outline-offset: 3px;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .gold-divider {
+    @apply w-full h-px bg-gold opacity-30;
+  }
+
+  .section-padding {
+    @apply py-32 md:py-40 px-6 md:px-12 lg:px-24;
+  }
+
+  .text-hero {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    letter-spacing: 0.05em;
+  }
+
+  .text-section-heading {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.04em;
+  }
+
+  .text-caption {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .note-tag {
+    @apply inline-block border border-gold/40 text-gold/80 px-3 py-1 text-xs tracking-widest uppercase;
+  }
+
+  .btn-gold {
+    @apply bg-gold text-charcoal px-8 py-3 text-sm tracking-widest uppercase font-medium
+           transition-all duration-300 hover:bg-gold-soft hover:shadow-[0_0_20px_rgba(199,161,90,0.3)];
+  }
+
+  .btn-outline {
+    @apply border border-gold/50 text-gold px-8 py-3 text-sm tracking-widest uppercase font-medium
+           transition-all duration-300 hover:border-gold hover:bg-gold/5 hover:shadow-[0_0_20px_rgba(199,161,90,0.15)];
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 hover:shadow-[0_0_40px_rgba(199,161,90,0.1)] hover:-translate-y-1;
+  }
 }
 
 @layer utilities {
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  .gradient-fade-b {
+    background: linear-gradient(to bottom, transparent, #0E0E10);
+  }
+
+  .gradient-fade-t {
+    background: linear-gradient(to top, transparent, #0E0E10);
+  }
+
   .text-balance {
     text-wrap: balance;
   }
 }
+
+/* ================================
+   HERO AMBIENT ANIMATIONS
+   ================================ */
+
+/* Ken Burns — slow zoom + pan on full image */
+@keyframes ken-burns {
+  0%   { transform: scale(1)    translate(0%,    0%);    }
+  50%  { transform: scale(1.06) translate(-1%,  -0.5%); }
+  100% { transform: scale(1)    translate(0%,    0%);    }
+}
+.animate-ken-burns {
+  animation: ken-burns 28s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Clouds — very slow horizontal drift */
+@keyframes cloud-drift {
+  0%   { transform: translateX(0px); }
+  50%  { transform: translateX(22px); }
+  100% { transform: translateX(0px); }
+}
+.animate-cloud-drift {
+  animation: cloud-drift 35s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Moon glow — subtle brightness pulse */
+@keyframes moon-glow {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 12px rgba(199,161,90,0.2)); }
+  50%       { filter: brightness(1.18) drop-shadow(0 0 24px rgba(199,161,90,0.4)); }
+}
+.animate-moon-glow {
+  animation: moon-glow 9s ease-in-out infinite;
+}
+
+/* Ocean — gentle vertical sway */
+@keyframes ocean-sway {
+  0%   { transform: translateY(0px)  translateX(0px); }
+  33%  { transform: translateY(-2px) translateX(1px); }
+  66%  { transform: translateY(1px)  translateX(-1px); }
+  100% { transform: translateY(0px)  translateX(0px); }
+}
+.animate-ocean-sway {
+  animation: ocean-sway 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Bottle — extremely subtle float */
+@keyframes bottle-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
+}
+.animate-bottle-float {
+  animation: bottle-float 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Glass shimmer — diagonal light sweep */
+@keyframes glass-shimmer {
+  0%   { opacity: 0; transform: translateX(-100%); }
+  38%  { opacity: 0; }
+  48%  { opacity: 1; }
+  58%  { opacity: 0; }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+.animate-glass-shimmer > div {
+  animation: glass-shimmer 14s ease-in-out infinite;
+}
+
+/* Foliage left */
+@keyframes foliage-sway-left {
+  0%   { transform: rotate(0deg)    translateX(0px); }
+  25%  { transform: rotate(0.8deg)  translateX(2px); }
+  75%  { transform: rotate(-0.4deg) translateX(-1px); }
+  100% { transform: rotate(0deg)    translateX(0px); }
+}
+.animate-foliage-sway-left {
+  animation: foliage-sway-left 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Foliage right — offset timing */
+@keyframes foliage-sway-right {
+  0%   { transform: rotate(0deg)    translateX(0px); }
+  30%  { transform: rotate(-0.6deg) translateX(-2px); }
+  70%  { transform: rotate(0.5deg)  translateX(1px); }
+  100% { transform: rotate(0deg)    translateX(0px); }
+}
+.animate-foliage-sway-right {
+  animation: foliage-sway-right 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* Building light flicker */
+@keyframes light-flicker {
+  0%, 100% { opacity: 1; }
+  30%       { opacity: 0.82; }
+  50%       { opacity: 1; }
+  70%       { opacity: 0.88; }
+  90%       { opacity: 0.96; }
+}
+.animate-light-flicker {
+  animation: light-flicker 4s ease-in-out infinite;
+}
+
+/* Fog drift */
+@keyframes fog-drift {
+  0%   { transform: translateX(-25%); }
+  100% { transform: translateX(0%); }
+}
+.animate-fog-drift {
+  animation: fog-drift 32s linear infinite;
+}
+
+/* Scroll indicator line */
+@keyframes scroll-line {
+  0%   { opacity: 1; transform: scaleY(0);   transform-origin: top; }
+  50%  { opacity: 1; transform: scaleY(1);   transform-origin: top; }
+  51%  {                                      transform-origin: bottom; }
+  100% { opacity: 0; transform: scaleY(0);   transform-origin: bottom; }
+}
+.animate-scroll-line {
+  animation: scroll-line 2.2s ease-in-out infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0E0E10; }
+::-webkit-scrollbar-thumb { background: #C7A15A40; }
+::-webkit-scrollbar-thumb:hover { background: #C7A15A80; }
