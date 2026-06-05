@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 import Button from "@/components/Button";
 import { Component as EtherealShadow } from "@/components/ui/etheral-shadow";
 import ParticleCanvas from "@/components/hero/ParticleCanvas";
@@ -13,8 +14,22 @@ export default function StoryTeaser() {
   return (
     <section className="section-padding relative overflow-hidden" style={{ background: "#0E0E10" }}>
 
-      {/* Ethereal shadow background */}
-      <div className="absolute inset-0 z-0 opacity-55 pointer-events-none">
+      {/* Desktop — background image */}
+      <div className="hidden md:block absolute inset-0 z-0">
+        <Image
+          src="/story-bg.png"
+          alt=""
+          fill
+          className="object-cover object-center brightness-125"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to right, rgba(14,14,16,0.1) 0%, rgba(14,14,16,0.25) 50%, rgba(14,14,16,0.65) 100%)"
+        }} />
+      </div>
+
+      {/* Mobile — ethereal shadow */}
+      <div className="md:hidden absolute inset-0 z-0 opacity-55 pointer-events-none">
         <EtherealShadow
           color="rgba(199, 161, 90, 0.5)"
           animation={{ scale: 55, speed: 18 }}
