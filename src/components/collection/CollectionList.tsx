@@ -35,7 +35,7 @@ function FragranceRow({ fragrance }: { fragrance: (typeof fragrances)[0]; index:
         {/* Image — always left */}
         <motion.div
           variants={fadeLeft}
-          className="relative overflow-hidden min-h-[180px] sm:min-h-[260px] lg:min-h-[360px]"
+          className="relative overflow-hidden aspect-video sm:aspect-auto sm:min-h-[260px] lg:min-h-[360px]"
         >
           <Image
             src={`/fragrances/${fragrance.slug}.jpg`}
