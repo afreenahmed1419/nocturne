@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NoiseOverlay from "@/components/NoiseOverlay";
 import PageTransition from "@/components/PageTransition";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -47,12 +48,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${jakarta.variable}`}>
       <body className="bg-charcoal text-parchment font-sans antialiased overflow-x-hidden">
-        <NoiseOverlay />
-        <Navbar />
-        <PageTransition>
-          <main>{children}</main>
-        </PageTransition>
-        <Footer />
+        <SmoothScroll>
+          <NoiseOverlay />
+          <Navbar />
+          <PageTransition>
+            <main>{children}</main>
+          </PageTransition>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
