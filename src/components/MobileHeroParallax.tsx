@@ -50,82 +50,68 @@ export default function MobileHeroParallax() {
         style={{ background: 'linear-gradient(to top, #0E0E10 10%, transparent)' }} />
 
       {/* Text content */}
-      <div ref={containerRef} className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-20 px-6 text-center">
+      <div ref={containerRef} className="absolute inset-0 z-20 flex flex-col items-between justify-between px-6 text-center pt-20 pb-14">
 
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-[#C7A15A]/60 text-[10px] tracking-[0.35em] uppercase mb-4"
-        >
-          Eau de Parfum
-        </motion.p>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif text-5xl text-[#E8E4D9] leading-tight mb-2"
-        >
-          The Night
-          <br />
-          <span className="italic text-[#C7A15A]">Has a Scent.</span>
-        </motion.h1>
-
-        {/* Gold underline */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="w-12 h-px bg-[#C7A15A]/50 origin-center mb-5"
-        />
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.9, delay: 1.1 }}
-          className="text-[#E8E4D9]/40 text-xs leading-relaxed mb-8 max-w-[260px]"
-        >
-          Crafted for those who find beauty in what others overlook.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.3 }}
-          className="flex flex-col gap-3 w-full max-w-[260px]"
-        >
-          <motion.div
-            animate={{ boxShadow: ['0 0 0px rgba(199,161,90,0)', '0 0 24px rgba(199,161,90,0.45)', '0 0 0px rgba(199,161,90,0)'] }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        {/* Top — text in dark sky area */}
+        <div className="flex flex-col items-center">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-[#C7A15A]/60 text-[10px] tracking-[0.35em] uppercase mb-3"
           >
-            <Link
-              href="/collection"
-              className="block w-full text-center bg-[#C7A15A] text-[#0E0E10] py-3.5 text-[11px] tracking-[0.2em] uppercase font-medium"
+            Eau de Parfum
+          </motion.p>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif text-5xl text-[#E8E4D9] leading-tight mb-2"
+          >
+            The Night
+            <br />
+            <span className="italic text-[#C7A15A]">Has a Scent.</span>
+          </motion.h1>
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="w-12 h-px bg-[#C7A15A]/50 origin-center mt-3"
+          />
+        </div>
+
+        {/* Bottom — CTAs below the bottle */}
+        <div className="flex flex-col items-center gap-3 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.3 }}
+            className="flex flex-col gap-3 w-full max-w-[280px]"
+          >
+            <motion.div
+              animate={{ boxShadow: ['0 0 0px rgba(199,161,90,0)', '0 0 24px rgba(199,161,90,0.45)', '0 0 0px rgba(199,161,90,0)'] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
             >
-              Shop Now →
+              <Link href="/collection" className="block w-full text-center bg-[#C7A15A] text-[#0E0E10] py-3.5 text-[11px] tracking-[0.2em] uppercase font-medium">
+                Shop Now →
+              </Link>
+            </motion.div>
+            <Link href="/story" className="block w-full text-center border border-[#C7A15A]/50 text-[#C7A15A] py-3.5 text-[11px] tracking-[0.2em] uppercase font-medium">
+              Our Story
             </Link>
           </motion.div>
 
-          <Link
-            href="/story"
-            className="block w-full text-center border border-[#C7A15A]/50 text-[#C7A15A] py-3.5 text-[11px] tracking-[0.2em] uppercase font-medium"
+          <motion.div
+            animate={{ opacity: [0, 0.4, 0] }}
+            transition={{ duration: 2.5, delay: 2.2, repeat: Infinity }}
+            className="flex flex-col items-center gap-1 mt-2"
           >
-            Our Story
-          </Link>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.4, 0] }}
-          transition={{ duration: 2.5, delay: 2.2, repeat: Infinity }}
-          className="mt-8 flex flex-col items-center gap-2"
-        >
-          <span className="text-[#C7A15A]/40 text-[9px] tracking-[0.3em] uppercase">Scroll</span>
-          <div className="w-px h-6 bg-gradient-to-b from-[#C7A15A]/35 to-transparent" />
-        </motion.div>
+            <span className="text-[#C7A15A]/40 text-[9px] tracking-[0.3em] uppercase">Scroll</span>
+            <div className="w-px h-5 bg-gradient-to-b from-[#C7A15A]/35 to-transparent" />
+          </motion.div>
+        </div>
 
       </div>
     </div>
