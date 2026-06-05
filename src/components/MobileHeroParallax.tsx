@@ -1,143 +1,133 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const DROPLETS = [
-  { x: '12%', y: '18%', size: 4, speed: 0.8 },
-  { x: '78%', y: '25%', size: 6, speed: 1.2 },
-  { x: '35%', y: '65%', size: 3, speed: 0.6 },
-  { x: '85%', y: '55%', size: 7, speed: 1.0 },
-  { x: '22%', y: '80%', size: 5, speed: 0.9 },
-  { x: '65%', y: '15%', size: 3, speed: 1.1 },
-  { x: '90%', y: '72%', size: 4, speed: 0.7 },
-  { x: '48%', y: '88%', size: 6, speed: 1.3 },
-  { x: '8%',  y: '45%', size: 3, speed: 0.5 },
-  { x: '55%', y: '35%', size: 5, speed: 1.0 },
-  { x: '72%', y: '90%', size: 4, speed: 0.8 },
-  { x: '30%', y: '10%', size: 3, speed: 1.2 },
-];
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export default function MobileHeroParallax() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const nebulaRef    = useRef<HTMLDivElement>(null);
-  const moonRef      = useRef<HTMLDivElement>(null);
-  const bottleRef    = useRef<HTMLDivElement>(null);
-  const swirlLeftRef = useRef<HTMLDivElement>(null);
-  const swirlRightRef = useRef<HTMLDivElement>(null);
-  const dropletRefs  = useRef<(HTMLDivElement | null)[]>([]);
-  const contentRef   = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: 1.2,
-          pin: false,
-        },
-      });
-
-      tl.to(nebulaRef.current,    { y: -80, scale: 1.08, ease: 'none' }, 0);
-      tl.to(moonRef.current,      { y: -120, ease: 'none' }, 0);
-      tl.to(bottleRef.current,    { y: -40, ease: 'none' }, 0);
-      tl.to(swirlLeftRef.current, { y: -60, x: -20, rotation: -8, ease: 'none' }, 0);
-      tl.to(swirlRightRef.current,{ y: -60, x:  20, rotation:  8, ease: 'none' }, 0);
-
-      dropletRefs.current.forEach((droplet, i) => {
-        if (!droplet) return;
-        tl.to(droplet, {
-          y: -(DROPLETS[i].speed * 100),
-          x: (i % 2 === 0 ? 1 : -1) * (DROPLETS[i].speed * 15),
-          opacity: 0.1,
-          ease: 'none',
-        }, 0);
-      });
-
-      tl.to(contentRef.current, { y: -80, opacity: 0, ease: 'none' }, 0);
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
-    <div className="md:hidden">
-      <div ref={containerRef} className="relative" style={{ height: '300vh' }}>
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0E0E10]">
+    <div className="md:hidden relative h-screen w-full overflow-hidden bg-[#0E0E10]">
 
-          {/* Layer 1 — Nebula */}
-          <div ref={nebulaRef} className="absolute inset-0 will-change-transform">
-            <Image src="/hero-layers/layer-1-nebula.png" alt="" fill className="object-cover" priority sizes="100vw" />
-          </div>
+      {/* Background image — Ken Burns zoom */}
+      <motion.div
+        className="absolute inset-[-4%]"
+        animate={{
+          scale: [1, 1.06, 1],
+          x: ['0%', '-1.5%', '0%'],
+          y: ['0%', '-1%', '0%'],
+        }}
+        transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <Image
+          src="/hero-mobile.png"
+          alt="Nocturne Eau de Parfum"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+      </motion.div>
 
-          {/* Layer 2 — Moon */}
-          <div ref={moonRef} className="absolute inset-0 will-change-transform" style={{ mixBlendMode: 'screen' }}>
-            <Image src="/hero-layers/layer-2-moon.png" alt="" fill className="object-cover" priority sizes="100vw" />
-          </div>
+      {/* Floating glow pulse behind bottle */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        animate={{ opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        style={{
+          background: 'radial-gradient(ellipse 60% 40% at 50% 60%, rgba(120,50,160,0.35) 0%, transparent 70%)',
+        }}
+      />
 
-          {/* Layer 4 — Swirl left */}
-          <div ref={swirlLeftRef} className="absolute inset-0 will-change-transform" style={{ mixBlendMode: 'screen' }}>
-            <Image src="/hero-layers/layer-4-swirl-left.png" alt="" fill className="object-cover" sizes="100vw" />
-          </div>
+      {/* Top fade */}
+      <div className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-10"
+        style={{ background: 'linear-gradient(to bottom, #0E0E10, transparent)' }} />
 
-          {/* Layer 5 — Swirl right */}
-          <div ref={swirlRightRef} className="absolute inset-0 will-change-transform" style={{ mixBlendMode: 'screen' }}>
-            <Image src="/hero-layers/layer-5-swirl-right.png" alt="" fill className="object-cover" sizes="100vw" />
-          </div>
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-10"
+        style={{ background: 'linear-gradient(to top, #0E0E10 10%, transparent)' }} />
 
-          {/* Layer 3 — Bottle */}
-          <div ref={bottleRef} className="absolute inset-0 will-change-transform" style={{ mixBlendMode: 'screen' }}>
-            <Image src="/hero-layers/layer-3-bottle.png" alt="Nocturne Eau de Parfum" fill className="object-cover" priority sizes="100vw" />
-          </div>
+      {/* Text content */}
+      <div ref={containerRef} className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-20 px-6 text-center">
 
-          {/* Layer 6 — Droplets */}
-          {DROPLETS.map((d, i) => (
-            <div
-              key={i}
-              ref={(el) => { dropletRefs.current[i] = el; }}
-              className="absolute rounded-full will-change-transform"
-              style={{
-                left: d.x, top: d.y,
-                width: d.size, height: d.size,
-                background: 'radial-gradient(circle at 30% 30%, rgba(140,80,160,0.8), rgba(43,26,46,0.9))',
-                boxShadow: 'inset -1px -1px 2px rgba(0,0,0,0.5), 0 0 4px rgba(90,45,106,0.3)',
-                zIndex: 20,
-              }}
-            />
-          ))}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-[#C7A15A]/60 text-[10px] tracking-[0.35em] uppercase mb-4"
+        >
+          Eau de Parfum
+        </motion.p>
 
-          {/* Gradient overlays */}
-          <div className="absolute inset-0 z-30 pointer-events-none bg-gradient-to-t from-[#0E0E10] via-transparent to-transparent opacity-80" />
-          <div className="absolute inset-0 z-30 pointer-events-none bg-gradient-to-b from-[#0E0E10]/40 via-transparent to-transparent" />
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="font-serif text-5xl text-[#E8E4D9] leading-tight mb-2"
+        >
+          The Night
+          <br />
+          <span className="italic text-[#C7A15A]">Has a Scent.</span>
+        </motion.h1>
 
-          {/* Text content */}
-          <div ref={contentRef} className="absolute inset-0 z-40 flex flex-col items-center justify-end pb-24 px-6 text-center pointer-events-none">
-            <p className="text-[#C7A15A]/50 text-[10px] tracking-[0.3em] uppercase mb-3">Eau de Parfum</p>
-            <h1 className="font-serif text-5xl text-[#C7A15A] tracking-[0.05em] uppercase leading-[0.9]">
-              Nocturne
-            </h1>
-            <p className="text-[#E8E4D9]/40 text-xs tracking-[0.2em] uppercase mt-3">Scents for the Unafraid</p>
-            <div className="mt-10 flex flex-col items-center gap-2">
-              <span className="text-[#C7A15A]/30 text-[9px] tracking-[0.3em] uppercase">Scroll</span>
-              <div className="w-px h-8 bg-gradient-to-b from-[#C7A15A]/30 to-transparent animate-pulse" />
-            </div>
-          </div>
+        {/* Gold underline */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="w-12 h-px bg-[#C7A15A]/50 origin-center mb-5"
+        />
 
-        </div>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: 1.1 }}
+          className="text-[#E8E4D9]/40 text-xs leading-relaxed mb-8 max-w-[260px]"
+        >
+          Crafted for those who find beauty in what others overlook.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.3 }}
+          className="flex flex-col gap-3 w-full max-w-[260px]"
+        >
+          <motion.div
+            animate={{ boxShadow: ['0 0 0px rgba(199,161,90,0)', '0 0 24px rgba(199,161,90,0.45)', '0 0 0px rgba(199,161,90,0)'] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+          >
+            <Link
+              href="/collection"
+              className="block w-full text-center bg-[#C7A15A] text-[#0E0E10] py-3.5 text-[11px] tracking-[0.2em] uppercase font-medium"
+            >
+              Shop Now →
+            </Link>
+          </motion.div>
+
+          <Link
+            href="/story"
+            className="block w-full text-center border border-[#C7A15A]/50 text-[#C7A15A] py-3.5 text-[11px] tracking-[0.2em] uppercase font-medium"
+          >
+            Our Story
+          </Link>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.4, 0] }}
+          transition={{ duration: 2.5, delay: 2.2, repeat: Infinity }}
+          className="mt-8 flex flex-col items-center gap-2"
+        >
+          <span className="text-[#C7A15A]/40 text-[9px] tracking-[0.3em] uppercase">Scroll</span>
+          <div className="w-px h-6 bg-gradient-to-b from-[#C7A15A]/35 to-transparent" />
+        </motion.div>
+
       </div>
-
-      {/* Noscript fallback */}
-      <noscript>
-        <div className="h-screen w-full bg-[#0E0E10] flex items-center justify-center">
-          <Image src="/hero/hero-full.png" alt="Nocturne" fill className="object-cover" />
-        </div>
-      </noscript>
     </div>
   );
 }
